@@ -1,26 +1,27 @@
+from typing import _T, Iterable
 from aoc.utils import read_input
 
 
-def is_digit(num: str):
+def is_digit(num: str) -> bool:
     return num.isdigit()
 
 
-def first(predicate, iterable):
+def first(predicate, iterable: Iterable[_T]) -> _T:
     return next(filter(predicate, iterable))
 
 
-def extract_first_digit(s: str):
+def extract_first_digit(s: str) -> int:
     return first(is_digit, list(s))
 
 
-def extract_digits(s: str):
+def extract_digits(s: str) -> int:
     first_digit = extract_first_digit(s)
     second_digit = extract_first_digit(reversed(s))
     digits = f"{first_digit}{second_digit}"
     return int(digits)
 
 
-def solve(lines: list[str]):
+def solve(lines: list[str]) -> int:
     result = map(extract_digits, lines)
     return sum(result)
 
