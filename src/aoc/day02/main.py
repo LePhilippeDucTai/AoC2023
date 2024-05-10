@@ -1,6 +1,9 @@
 from enum import Enum
 from aoc.utils import read_input
 import re
+import pandas as pd
+import functools as ft
+import operator as op
 
 
 class Color(Enum):
@@ -60,17 +63,45 @@ def solve(input):
 
 
 def check_possible_game(input_element):
-    id, game = parse_game(input_element)
-    counts = list(map(get_counts, game))
+    id, counts = compute_counts(input_element)
     checking_limits = all(map(check_limits, counts))
     if checking_limits:
         return id
 
 
+def compute_counts(input_element):
+    id, game = parse_game(input_element)
+    counts = list(map(get_counts, game))
+    return id, counts
+
+
+def merge_max_dicts(d1: dict, d2: dict) -> dict:
+    max_dict = pd.DataFrame([d1, d2]).fillna(0).astype("int").max().to_dict()
+    return max_dict
+
+
+def power(sets: dict):
+    return ft.reduce(op.mul, sets.values())
+
+
+def max_counts(input_element):
+    id, counts = compute_counts(input_element)
+    max_dicts = ft.reduce(merge_max_dicts, counts)
+    return power(max_dicts)
+
+
+def solve_part2(games_input):
+    powers = map(max_counts, games_input)
+    return sum(powers)
+
+
 def main():
     games_input = read_input("day02/input")
     result = solve(games_input)
-    print(result)
+    print(f"Part 1: {result}")
+
+    result_2 = solve_part2(games_input)
+    print(f"Part 2: {result_2}")
 
 
 if __name__ == "__main__":
