@@ -16,5 +16,6 @@ dependencies:
     - ruff
     - pytest
     - ipykernel
-
+    - setuptools
+    - e .
 
