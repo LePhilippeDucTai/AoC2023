@@ -1,0 +1,20 @@
+name: aoc2023
+dependencies:
+  - python=3.12
+  - numpy
+  - numba
+  - pandas
+  - scipy
+  - scikit-learn
+  - pip
+  - pip:
+    - matplotlib
+    - ipython
+    - jupyterlab
+    - seaborn
+    - black
+    - ruff
+    - pytest
+    - ipykernel
+
+
