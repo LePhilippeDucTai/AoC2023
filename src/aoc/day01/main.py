@@ -1,12 +1,14 @@
-from typing import _T, Iterable
+from typing import TypeVar, Iterable
 from aoc.utils import read_input
+
+T = TypeVar("T")
 
 
 def is_digit(num: str) -> bool:
     return num.isdigit()
 
 
-def first(predicate, iterable: Iterable[_T]) -> _T:
+def first(predicate, iterable: Iterable[T]) -> T:
     return next(filter(predicate, iterable))
 
 
