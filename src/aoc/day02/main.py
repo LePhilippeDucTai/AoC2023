@@ -1,4 +1,3 @@
-from enum import Enum
 from aoc.utils import read_input
 import re
 import pandas as pd
@@ -6,13 +5,13 @@ import functools as ft
 import operator as op
 
 
-class Color(Enum):
+class Color:
     RED = "red"
     GREEN = "green"
     BLUE = "blue"
 
 
-class Limit(Enum):
+class Limit:
     RED = 12
     GREEN = 13
     BLUE = 14
@@ -51,9 +50,9 @@ def get_counts(ls_colors: list[str]):
 
 def check_limits(counter: dict):
     return (
-        (counter.get(Color.RED.value, 0) <= Limit.RED.value)
-        & (counter.get(Color.BLUE.value, 0) <= Limit.BLUE.value)
-        & (counter.get(Color.GREEN.value, 0) <= Limit.GREEN.value)
+        (counter.get(Color.RED, 0) <= Limit.RED)
+        & (counter.get(Color.BLUE, 0) <= Limit.BLUE)
+        & (counter.get(Color.GREEN, 0) <= Limit.GREEN)
     )
 
 
@@ -85,7 +84,7 @@ def power(sets: dict):
 
 
 def max_counts(input_element):
-    id, counts = compute_counts(input_element)
+    _, counts = compute_counts(input_element)
     max_dicts = ft.reduce(merge_max_dicts, counts)
     return power(max_dicts)
 
